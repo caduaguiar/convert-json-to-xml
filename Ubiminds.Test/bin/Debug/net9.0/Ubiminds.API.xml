@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Ubiminds.API</name>
+    </assembly>
+    <members>
+        <member name="T:Ubiminds.API.Controllers.ConversionController">
+            <summary>
+            Controller responsible for JSON to XML conversion operations
+            </summary>
+        </member>
+        <member name="M:Ubiminds.API.Controllers.ConversionController.#ctor(Ubiminds.Data.Services.IValidationService,Ubiminds.Data.Services.IJsonToXmlConverter,Microsoft.Extensions.Logging.ILogger{Ubiminds.API.Controllers.ConversionController})">
+            <summary>
+            Controller responsible for JSON to XML conversion operations
+            </summary>
+        </member>
+    </members>
+</doc>

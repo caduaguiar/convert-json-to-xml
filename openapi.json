@@ -1,0 +1,269 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Ubiminds JSON to XML Converter API",
+    "description": "An ASP.NET Core Web API for converting JSON documents to XML format with validation rules and custom structure mapping",
+    "contact": {
+      "name": "Ubiminds Team",
+      "email": "contact@ubiminds.com"
+    },
+    "version": "v1"
+  },
+  "paths": {
+    "/api/conversion/json-to-xml": {
+      "post": {
+        "tags": [
+          "Conversion"
+        ],
+        "summary": "Converts a JSON document to PublishedItem XML format with validation",
+        "description": "Converts a JSON document containing publication metadata to a structured XML format. The API performs validation checks and transforms the JSON into a PublishedItem XML structure with nested contact information.\n\nSample request:\n\n    POST /api/conversion/json-to-xml\n    {\n        \"Id\": \"TCnWpDVD\",\n        \"Title\": \"Document for Publication > Best Report Yet!!\",\n        \"CountryIds\": [\"US\"],\n        \"PublishDate\": \"2024-08-26T18:19:59Z\",\n        \"Status\": 3,\n        \"TestRun\": false,\n        \"ReportMetadata\": {\n            \"ContactSection\": [{\n                \"ContactInformation\": [{\n                    \"ContactHeader\": \"Media Contact\",\n                    \"Contacts\": [{\n                        \"FirstName\": \"Carlos\",\n                        \"LastName\": \"Aguiar\",\n                        \"Title\": \"Developer\",\n                        \"PhoneNumber\": \"+1 646-731-1347\"\n                    }]\n                }]\n            }]\n        }\n    }\n\nValidation Rules:\n- Status must equal 3\n- PublishDate must be on or after 08/24/2024 (UTC)\n- TestRun must be false",
+        "operationId": "ConvertJsonToXml",
+        "requestBody": {
+          "description": "The JSON document to convert. Must include required validation fields.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["Status", "PublishDate", "TestRun"],
+                "properties": {
+                  "Id": {
+                    "type": "string",
+                    "description": "Document identifier (not included in XML output)",
+                    "example": "TCnWpDVD"
+                  },
+                  "Title": {
+                    "type": "string",
+                    "description": "Document title (mapped to PublishedItem/Title)",
+                    "example": "Document for Publication > Best Report Yet!!"
+                  },
+                  "CountryIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Array of country codes (mapped to comma-separated Countries element)",
+                    "example": ["US", "CA", "MX"]
+                  },
+                  "PublishDate": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Publication date (must be on or after 08/24/2024, mapped to PublishedDate)",
+                    "example": "2024-08-26T18:19:59Z"
+                  },
+                  "Status": {
+                    "type": "integer",
+                    "description": "Document status (must equal 3, not included in XML output)",
+                    "example": 3
+                  },
+                  "TestRun": {
+                    "type": "boolean",
+                    "description": "Test run flag (must be false, not included in XML output)",
+                    "example": false
+                  },
+                  "ReportMetadata": {
+                    "type": "object",
+                    "description": "Contains contact information sections",
+                    "properties": {
+                      "ContactSection": {
+                        "type": "array",
+                        "description": "Array of contact sections",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "ContactInformation": {
+                              "type": "array",
+                              "description": "Array of contact information groups",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "ContactHeader": {
+                                    "type": "string",
+                                    "description": "Contact group name (mapped to PersonGroup/Name)",
+                                    "example": "Media Contact"
+                                  },
+                                  "Contacts": {
+                                    "type": "array",
+                                    "description": "Array of contact persons",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "FirstName": {
+                                          "type": "string",
+                                          "example": "Carlos"
+                                        },
+                                        "LastName": {
+                                          "type": "string",
+                                          "example": "Aguiar"
+                                        },
+                                        "Email": {
+                                          "type": "string",
+                                          "format": "email",
+                                          "description": "Contact email (not included in XML output)",
+                                          "example": "carlos.aguiar@kbra.com"
+                                        },
+                                        "Title": {
+                                          "type": "string",
+                                          "description": "Job title (mapped to JobTitle)",
+                                          "example": "Developer"
+                                        },
+                                        "PhoneNumber": {
+                                          "type": "string",
+                                          "description": "Phone number (mapped to ContactInfo/Phone/Number)",
+                                          "example": "+1 646-731-1347"
+                                        },
+                                        "Accreditation": {
+                                          "type": "string",
+                                          "description": "Professional accreditation (not included in XML output)",
+                                          "example": "CM&AA"
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the PublishedItem XML representation with structured contact information. Note: The closing ContactInformation tag is intentionally omitted for legacy format compatibility.",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<PublishedItem>\n    <Title>Document for Publication &gt; Best Report Yet!!</Title>\n    <Countries>US</Countries>\n    <PublishedDate>2024-08-26T18:19:59Z</PublishedDate>\n    <ContactInformation>\n        <PersonGroup sequence=\"1\">\n            <Name>Media Contact</Name>\n            <PersonGroupMember>\n                <Person>\n                    <FamilyName>Aguiar</FamilyName>\n                    <GivenName>Carlos</GivenName>\n                    <DisplayName>Carlos Aguiar</DisplayName>\n                    <JobTitle>Developer</JobTitle>\n                    <ContactInfo>\n                        <Phone>\n                            <Number>+1 646-731-1347</Number>\n                        </Phone>\n                    </ContactInfo>\n                </Person>\n            </PersonGroupMember>\n        </PersonGroup>\n</PublishedItem>"
+              }
+            }
+          },
+          "400": {
+            "description": "Returns validation error if the JSON document fails business rule validation or is malformed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message describing the validation failure"
+                    },
+                    "details": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Additional error details (optional)"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "description": "Request trace identifier for debugging"
+                    }
+                  }
+                },
+                "examples": {
+                  "invalidStatus": {
+                    "summary": "Status validation failure",
+                    "value": {
+                      "error": "Status must be equal to 3",
+                      "traceId": "00-1234567890abcdef-1234567890abcdef-00"
+                    }
+                  },
+                  "invalidPublishDate": {
+                    "summary": "PublishDate validation failure",
+                    "value": {
+                      "error": "PublishDate must be on or after 08/24/2024 (UTC)",
+                      "traceId": "00-1234567890abcdef-1234567890abcdef-00"
+                    }
+                  },
+                  "invalidTestRun": {
+                    "summary": "TestRun validation failure",
+                    "value": {
+                      "error": "TestRun must be false",
+                      "traceId": "00-1234567890abcdef-1234567890abcdef-00"
+                    }
+                  },
+                  "malformedJson": {
+                    "summary": "JSON parsing error",
+                    "value": {
+                      "error": "Validation failed",
+                      "details": [
+                        "The JSON value could not be converted to System.Text.Json.JsonDocument"
+                      ],
+                      "traceId": "00-1234567890abcdef-1234567890abcdef-00"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Returns error if an unexpected exception occurs during XML conversion",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Error message"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "description": "Request trace identifier for debugging"
+                    }
+                  }
+                },
+                "example": {
+                  "error": "Failed to convert JSON to XML: An error occurred during XML construction",
+                  "traceId": "00-1234567890abcdef-1234567890abcdef-00"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Primary error message"
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Additional error details (optional)",
+            "nullable": true
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Request trace identifier for debugging",
+            "nullable": true
+          }
+        },
+        "required": ["error"]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Conversion",
+      "description": "JSON to XML conversion operations with validation and custom structure mapping"
+    }
+  ]
+}

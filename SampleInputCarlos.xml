@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PublishedItem>
+    <Title>Document for Publication &gt; Best Report Yet!!</Title>
+    <Countries>US</Countries>
+    <PublishedDate>2024-08-26T18:19:59Z</PublishedDate>
+    <ContactInformation>
+        <PersonGroup sequence="1">
+            <Name>Media Contact</Name>
+            <PersonGroupMember>
+                <Person>
+                    <FamilyName>Aguiar</FamilyName>
+                    <GivenName>Carlos</GivenName>
+                    <DisplayName>Carlos Aguiar</DisplayName>
+                    <JobTitle>Developer</JobTitle>
+                    <ContactInfo>
+                        <Phone>
+                            <Number>+1 646-731-1347</Number>
+                        </Phone>
+                    </ContactInfo>
+                </Person>
+            </PersonGroupMember>
+        </PersonGroup>
+    </ContactInformation>
+</PublishedItem>

@@ -1,0 +1,13 @@
+/Users/carlosaguiar/Projects/Pessoal/KRBA/csharp_code_challenge/Project/Ubiminds.Data/bin/Debug/net9.0/Ubiminds.Data.deps.json
+/Users/carlosaguiar/Projects/Pessoal/KRBA/csharp_code_challenge/Project/Ubiminds.Data/bin/Debug/net9.0/Ubiminds.Data.dll
+/Users/carlosaguiar/Projects/Pessoal/KRBA/csharp_code_challenge/Project/Ubiminds.Data/bin/Debug/net9.0/Ubiminds.Data.pdb
+/Users/carlosaguiar/Projects/Pessoal/KRBA/csharp_code_challenge/Project/Ubiminds.Data/obj/Debug/net9.0/Ubiminds.Data.csproj.AssemblyReference.cache
+/Users/carlosaguiar/Projects/Pessoal/KRBA/csharp_code_challenge/Project/Ubiminds.Data/obj/Debug/net9.0/Ubiminds.Data.GeneratedMSBuildEditorConfig.editorconfig
+/Users/carlosaguiar/Projects/Pessoal/KRBA/csharp_code_challenge/Project/Ubiminds.Data/obj/Debug/net9.0/Ubiminds.Data.AssemblyInfoInputs.cache
+/Users/carlosaguiar/Projects/Pessoal/KRBA/csharp_code_challenge/Project/Ubiminds.Data/obj/Debug/net9.0/Ubiminds.Data.AssemblyInfo.cs
+/Users/carlosaguiar/Projects/Pessoal/KRBA/csharp_code_challenge/Project/Ubiminds.Data/obj/Debug/net9.0/Ubiminds.Data.csproj.CoreCompileInputs.cache
+/Users/carlosaguiar/Projects/Pessoal/KRBA/csharp_code_challenge/Project/Ubiminds.Data/obj/Debug/net9.0/Ubiminds.Data.sourcelink.json
+/Users/carlosaguiar/Projects/Pessoal/KRBA/csharp_code_challenge/Project/Ubiminds.Data/obj/Debug/net9.0/Ubiminds.Data.dll
+/Users/carlosaguiar/Projects/Pessoal/KRBA/csharp_code_challenge/Project/Ubiminds.Data/obj/Debug/net9.0/refint/Ubiminds.Data.dll
+/Users/carlosaguiar/Projects/Pessoal/KRBA/csharp_code_challenge/Project/Ubiminds.Data/obj/Debug/net9.0/Ubiminds.Data.pdb
+/Users/carlosaguiar/Projects/Pessoal/KRBA/csharp_code_challenge/Project/Ubiminds.Data/obj/Debug/net9.0/ref/Ubiminds.Data.dll
